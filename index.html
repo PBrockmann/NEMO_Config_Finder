@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<!--
+ ##########################################################################
+ Patrick.Brockmann@lsce.ipsl.fr
+ PLEASE DO NOT COPY OR DISTRIBUTE WITHOUT PERMISSION
+ ##########################################################################
+-->
+  <head>
+    <meta charset="utf-8">
+
+    <title>NEMO Config Finder</title>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script> 
+
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css">
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="bower_components/d3/d3.min.js"></script>
+    <script type="text/javascript" src="bower_components/crossfilter2/crossfilter.min.js"></script>
+    
+    <script type="text/javascript" src="bower_components/dcjs/dc.js"></script>
+    <link rel="stylesheet" href="bower_components/dcjs/dc.min.css" />
+    
+    <script type="text/javascript" src="bower_components/leaflet/dist/leaflet-src.js"></script>
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    
+    <script src="bower_components/dc-addons/dist/leaflet-map/dc-leaflet.js"></script>
+
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/leaflet.zoomhome/dist/leaflet.zoomhome.css"/>
+    <script src="bower_components/leaflet.zoomhome/dist/leaflet.zoomhome.js"></script>
+
+    <script src="lib/Leaflet.Graticule/L.Graticule.js"></script>
+
+    <script src="lib/Leaflet.MousePosition/L.Control.MousePosition.js"></script>
+    <link rel="stylesheet" href="lib/Leaflet.MousePosition/L.Control.MousePosition.css" />
+
+    <script src="bower_components/leaflet-minimap/dist/Control.MiniMap.min.js"></script>
+    <link rel="stylesheet" href="bower_components/leaflet-minimap/dist/Control.MiniMap.min.css" />
+
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="sticky-footer-navbar.css" rel="stylesheet">
+
+    <script src="setup.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="non-responsive.css" rel="stylesheet" type="text/css">
+
+  </head>
+
+  <body>
+
+      <div class="container">
+	<br>	
+      	<div class="row">
+      		<div id="chart-map" class="dc-chart col-xs-12" style="height: 400px;"></div>
+        </div>
+        <div class="row">
+		<div class='dc-data-count' id='chart-count'>
+			<span class='filter-count'></span>selected out of <span class='total-count'></span> records.
+		</div>
+        </div>
+	<br>
+        <div class='row'>
+		<div class="dc-chart col-xs-2" id="chart-tags">
+                        <div class="dc-chart-title">Tags</div>
+                        <a class="reset" href="javascript:tagsChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                        <br>
+                </div>
+        </div>
+        <div class='row'>
+           <table class='table table-hover' id='chart-table'>
+             <thead>
+               <tr class='header'>
+                 <th class="th_Id">Id</th>
+                 <th class="th_Name">Name</th>
+                 <th class="th_Contact">Contact</th>
+                 <th class="th_Description">Description</th>
+                 <th class="th_Tags">Tags</th>
+               </tr>
+             </thead>
+           </table>
+        </div>
+      </div><!-- /.container -->
+
+  </body>
+</html>
