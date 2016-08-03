@@ -99,7 +99,7 @@ function initCrossfilter(data) {
       .geojson(dataJson.features)
       .featureOptions(function(feature) { return feature.properties.style; })
       .featureKeyAccessor(function(feature) { return feature.id; })
-      .colorCalculator(function (d) { return d.Color; })
+      .colorCalculator(function (d) { if (d.value==0) return "#000"; else return d.Color; })
       .title(function(d) {
 		var id = d.key -1;
                 return "Name: " + "<b>" + data[id].Name + "</b></br>"
