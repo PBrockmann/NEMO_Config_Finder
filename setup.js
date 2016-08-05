@@ -23,7 +23,8 @@ $(document).ready(function() {
             				"color": d.Color,
             				"opacity": 1,
             			//	"fillColor": d.Color,		// not used, use rather colorCalculator
-            				"fillOpacity": 0.3
+            				"fillOpacity": 0.3,
+            				"visible": true 
         			}
 			  },
 			 "geometry": {
@@ -97,9 +98,16 @@ function initCrossfilter(data) {
       })
       .mapOptions({maxZoom: mapMaxZoom, zoomControl: false})
       .geojson(dataJson.features)
-      .featureOptions(function(feature) { return feature.properties.style; })
+      .featureOptions(function(feature, v) { 
+		var style = feature.properties.style; 
+		if (v && v.d.value==0) { 
+			style.opacity=0.; style.fillOpacity=0.; 
+		} else {
+			style.opacity=1.; style.fillOpacity=0.3;
+		}
+		return style; 
+      })
       .featureKeyAccessor(function(feature) { return feature.id; })
-      .colorCalculator(function (d) { if (d.value==0) return "#000"; else return d.Color; })
       .title(function(d) {
 		var id = d.key -1;
                 return "Name: " + "<b>" + data[id].Name + "</b></br>"

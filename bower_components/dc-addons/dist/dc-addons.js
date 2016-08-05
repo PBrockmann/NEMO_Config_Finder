@@ -1,7 +1,7 @@
 /*!
- * dc-addons v0.13.3
+ * dc-addons v0.13.4
  *
- * 2016-07-26 08:03:54
+ * 2016-08-05 08:19:31
  *
  */
 if (!dc.utils.getAllFilters) {
@@ -203,13 +203,17 @@ if (!dc.utils.getAllFilters) {
         };
 
         var _featureStyle = function (feature) {
+            var v = _dataMap[_chart.featureKeyAccessor()(feature)];
+
             var options = _chart.featureOptions();
-            if (options instanceof Function) {
-                options = options(feature);
+            var optionsIsFunction = options instanceof Function;
+
+            if (optionsIsFunction) {
+                options = options(feature, v);
             }
             options = JSON.parse(JSON.stringify(options));
-            var v = _dataMap[_chart.featureKeyAccessor()(feature)];
-            if (v && v.d) {
+
+            if (v && v.d && !optionsIsFunction) {
                 options.fillColor = _chart.getColor(v.d, v.i);
                 if (_chart.filters().indexOf(v.d.key) !== -1) {
                     options.opacity = 0.8;
