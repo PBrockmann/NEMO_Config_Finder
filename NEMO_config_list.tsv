@@ -1,5 +1,6 @@
 Name	Contact	Description	Tags	Coordinates	Color
-aaaa	John	Un deux trois	rabbit	[[-60, 30], [-60, 60], [-130, 60], [-130, 30]]	orange
-bbbb	Mary	Once upon a time	fish	[[0, 30], [0, 60], [-50, 60], [-50, 30]]	blue
-cccc	Patrick	Test	fish	[[-60, 10], [-60, 40], [-100, 40], [-100, 10]]	#55FF00
-dddd	Bill	Blabla	cow	[[60, 10], [60, 40], [-10, 40], [-10, 10]]	red
+aaaa	John	Un deux trois	rabbit, fish, dog, cat	[[-60, 30], [-60, 60], [-130, 60], [-130, 30]]	orange
+bbbb	Mary	Once upon a time	fish, shark	[[0, 30], [0, 60], [-50, 60], [-50, 30]]	blue
+cccc	Patrick	Test	fish, whale	[[-60, 10], [-60, 40], [-100, 40], [-100, 10]]	#55FF00
+dddd	Bill	Blabla	cow, pig, sheep	[[60, 10], [60, 40], [-10, 40], [-10, 10]]	red
+eeee	Cathy	Zzzzz	whale, shark, fish	[[40, -20], [40, 20], [0, 20], [0, -20]] 	darkviolet	

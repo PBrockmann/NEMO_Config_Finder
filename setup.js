@@ -13,6 +13,8 @@ $(document).ready(function() {
     data.forEach(function(d, i) {
           d.Id = i+1;
           d.Coordinates = eval(d.Coordinates);
+          d.Tags = d.Tags.trim().split(',');
+          d.Tags = d.Tags.map(function(s) { return s.trim() });
     	  dataJson.push({"type": "Feature",
 			 "id": d.Id,
 			 "properties": {
@@ -28,6 +30,8 @@ $(document).ready(function() {
         			}
 			  },
 			 "geometry": {
+				//"type": "LineString",
+				//"coordinates": d.Coordinates
 				"type": "Polygon",
 				"coordinates": [d.Coordinates]
 			  }});
@@ -76,11 +80,6 @@ function initCrossfilter(data) {
   mapDim = xf.dimension(function(d) { return d.Id });
   mapGroup = mapDim.group();
 
-  tagsDim = xf.dimension( function(d) { return d.Tags; });
-  tagsGroup = tagsDim.group();
-
-  tableDim = xf.dimension(function(d) { return d.Id });
-
   //-----------------------------------
   mapChart  = dc.leafletChoroplethChart("#chart-map");
 
@@ -118,6 +117,8 @@ function initCrossfilter(data) {
       
 
 //-----------------------------------
+  tableDim = xf.dimension(function(d) { return d.Id });
+
   dataCount = dc.dataCount('#chart-count');
 
   dataCount 
@@ -133,6 +134,43 @@ function initCrossfilter(data) {
 // next step will be to use multiple tags
 // http://stackoverflow.com/questions/28796895/update-multiple-tags-rowchart-in-dc-js
 
+  tagsDim = xf.dimension( function(d) { return d.Tags; });
+  //tagsGroup = tagsDim.group();
+
+  // tags chart
+  function reduceAdd(p, v) {
+      v.Tags.forEach (function(val, idx) {
+          p[val] = (p[val] || 0) + 1; //increment counts
+      });
+      return p;
+  }
+
+  function reduceRemove(p, v) {
+      v.Tags.forEach (function(val, idx) {
+          p[val] = (p[val] || 0) - 1; //decrement counts
+      });
+      return p;
+  }
+
+  function reduceInitial() {
+      return [];
+  }
+
+  var groupall = tagsDim.groupAll();
+  var tagsGroup = groupall.reduce(reduceAdd, reduceRemove, reduceInitial).value();
+  tagsGroup.all = function() {
+      var newObject = [];
+      for (var key in this) {
+          if (this[key] && key != "all") {
+              newObject.push({
+                  key: key,
+                  value: this[key]
+              });
+          }
+      }
+      return newObject;
+  }
+
   tagsChart  = dc.rowChart("#chart-tags");
 
   tagsChart
@@ -143,6 +181,19 @@ function initCrossfilter(data) {
     .group(tagsGroup)
     .elasticX(true)
     .gap(2)
+    .filterHandler (function (dimension, filters) {
+        if (filters.length === 0) {
+        	dimension.filter(null);
+        } else {
+        	dimension.filterFunction(function (d) {
+          		for (var i=0; i < filters.length; i++) {
+            			if (d.indexOf(filters[i]) <0) return false;
+          		}
+          	return true;
+        	});
+        }
+        return filters;
+    })
     .xAxis().ticks(4);
 
 //-----------------------------------
@@ -159,7 +210,7 @@ function initCrossfilter(data) {
       function(d) { return d.Name; },
       function(d) { return d.Contact; },
       function(d) { return d.Description; },
-      function(d) { return d.Tags; },
+      function(d) { return d.Tags.join(', '); },
     ])
     .sortBy(function(d){ return +d.Id; })
     .order(d3.ascending);

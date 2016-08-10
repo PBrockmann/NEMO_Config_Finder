@@ -10,18 +10,18 @@
   float: left;
   line-height: 1em;
   border: 0px;
-  padding: 5px;
+  padding: 5px 0 5px;
 }
 
 #chart-table>thead>tr>th {
   font-weight: normal;
 }
 
-#chart-table .th_Id, #chart-table .dc-table-column._0 { width: 50px; text-align: left; padding-left: 5px;}
+#chart-table .th_Id, #chart-table .dc-table-column._0 { width: 50px; text-align: left; padding-left: 0px;}
 #chart-table .th_Name, #chart-table .dc-table-column._1 { width: 100px; text-align: left;}
 #chart-table .th_Contact, #chart-table .dc-table-column._2 { width: 150px; text-align: left;}
-#chart-table .th_Description, #chart-table .dc-table-column._3 { width: 450px; text-align: left; padding-left: 50px;}
-#chart-table .th_Coordinates, #chart-table .dc-table-column._4 { width: 450px; text-align: left; padding-left: 20px;}
+#chart-table .th_Description, #chart-table .dc-table-column._3 { width: 450px; text-align: left; padding-left: 0px;}
+#chart-table .th_Coordinates, #chart-table .dc-table-column._4 { width: 450px; text-align: left; padding-left: 0px;}
 
 #chart-table .dc-table-column._1, .dc-table-column._3, #chart-table .dc-table-column._4 {
   overflow: hidden;
